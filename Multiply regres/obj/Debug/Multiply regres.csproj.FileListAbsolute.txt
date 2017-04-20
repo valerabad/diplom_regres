@@ -16,3 +16,6 @@ C:\Users\User\Desktop\Диплом\Multiply regres\Multiply regres\obj\Debug\Mul
 C:\Users\User\Desktop\Диплом\Multiply regres\Multiply regres\obj\Debug\Multiply_regres.Form1.resources
 C:\Users\User\Desktop\Диплом\Multiply regres\Multiply regres\obj\Debug\Multiply_regres.Properties.Resources.resources
 C:\Users\User\Desktop\Диплом\Multiply regres\Multiply regres\obj\Debug\Multiply regres.csproj.GenerateResource.Cache
+C:\Users\User\Desktop\Диплом\diplom_regres\Multiply regres\bin\Debug\Multiply regres.exe.config
+C:\Users\User\Desktop\Диплом\diplom_regres\Multiply regres\obj\Debug\Multiply regres.exe
+C:\Users\User\Desktop\Диплом\diplom_regres\Multiply regres\obj\Debug\Multiply regres.pdb

@@ -137,6 +137,7 @@ namespace Multiply_regres
             catch
             {
                 MessageBox.Show("Выберите файл с данными", "Предупреждение");
+                int test = 33;
             }
         }
 
