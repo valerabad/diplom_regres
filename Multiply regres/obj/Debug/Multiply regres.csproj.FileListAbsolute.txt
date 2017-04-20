@@ -1,0 +1,18 @@
+c:\users\user\documents\visual studio 2015\Projects\Multiply regres\Multiply regres\bin\Debug\Multiply regres.exe.config
+c:\users\user\documents\visual studio 2015\Projects\Multiply regres\Multiply regres\bin\Debug\Multiply regres.exe
+c:\users\user\documents\visual studio 2015\Projects\Multiply regres\Multiply regres\bin\Debug\Multiply regres.pdb
+c:\users\user\documents\visual studio 2015\Projects\Multiply regres\Multiply regres\obj\Debug\Multiply regres.csprojResolveAssemblyReference.cache
+c:\users\user\documents\visual studio 2015\Projects\Multiply regres\Multiply regres\obj\Debug\Multiply_regres.Form1.resources
+c:\users\user\documents\visual studio 2015\Projects\Multiply regres\Multiply regres\obj\Debug\Multiply_regres.Properties.Resources.resources
+c:\users\user\documents\visual studio 2015\Projects\Multiply regres\Multiply regres\obj\Debug\Multiply regres.csproj.GenerateResource.Cache
+c:\users\user\documents\visual studio 2015\Projects\Multiply regres\Multiply regres\obj\Debug\Multiply regres.exe
+c:\users\user\documents\visual studio 2015\Projects\Multiply regres\Multiply regres\obj\Debug\Multiply regres.pdb
+C:\Users\User\Desktop\Диплом\Multiply regres\Multiply regres\bin\Debug\Multiply regres.exe.config
+C:\Users\User\Desktop\Диплом\Multiply regres\Multiply regres\obj\Debug\Multiply regres.exe
+C:\Users\User\Desktop\Диплом\Multiply regres\Multiply regres\obj\Debug\Multiply regres.pdb
+C:\Users\User\Desktop\Диплом\Multiply regres\Multiply regres\bin\Debug\Multiply regres.exe
+C:\Users\User\Desktop\Диплом\Multiply regres\Multiply regres\bin\Debug\Multiply regres.pdb
+C:\Users\User\Desktop\Диплом\Multiply regres\Multiply regres\obj\Debug\Multiply regres.csprojResolveAssemblyReference.cache
+C:\Users\User\Desktop\Диплом\Multiply regres\Multiply regres\obj\Debug\Multiply_regres.Form1.resources
+C:\Users\User\Desktop\Диплом\Multiply regres\Multiply regres\obj\Debug\Multiply_regres.Properties.Resources.resources
+C:\Users\User\Desktop\Диплом\Multiply regres\Multiply regres\obj\Debug\Multiply regres.csproj.GenerateResource.Cache
