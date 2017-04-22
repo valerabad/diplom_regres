@@ -29,12 +29,26 @@ namespace Multiply_regres
         public double S(double[,] x, int sign)
         {
             int N = x.GetLength(1);
-            double tmp = 0; double x_ = this.srednee(x, sign);
+            double tmp = 0;
+            for (int j = 0; j < N; j++)
+            {
+                tmp = tmp + x[sign, j];
+            }
+
+            double x_ = (1.0d / N) * tmp;
+            tmp = 0;
             for (int j = 0; j < N; j++)
             {
                 tmp = tmp + (Math.Pow((x[sign, j] - x_), 2));
             }
-            return tmp * (1.0d / (N - 1));
+            return (1.0d / (N - 1)) * tmp;
+            //int N = x.GetLength(1);
+            //double tmp = 0; double x_ = this.srednee(x, sign);
+            //for (int j = 0; j < N; j++)
+            //{
+            //    tmp = tmp + (Math.Pow((x[sign, j] - x_), 2));
+            //}
+            //return tmp * (1.0d / (N - 1));
         }
 
         // Средне квадратическое смещёное
@@ -48,23 +62,23 @@ namespace Multiply_regres
         //    }
         //    return tmp * (1.0d / (N));
         //}
-        public double S_non(double[] Y)
-        {
-            int N = Y.Length;
-            double tmp = 0;
-            for (int j = 0; j < N; j++)
-            {
-                tmp = tmp + Y[j];
-            }
+        //public double S_non(double[] Y)
+        //{
+        //    int N = Y.Length;
+        //    double tmp = 0;
+        //    for (int j = 0; j < N; j++)
+        //    {
+        //        tmp = tmp + Y[j];
+        //    }
 
-            double x_ = (1.0d / N) * tmp;
-            tmp = 0;
-            for (int j = 0; j < N; j++)
-            {
-                tmp = tmp + (Math.Pow((Y[j] - x_), 2));
-            }
-            return (1.0d / (N-1)) * tmp;
-        }
+        //    double x_ = (1.0d / N) * tmp;
+        //    tmp = 0;
+        //    for (int j = 0; j < N; j++)
+        //    {
+        //        tmp = tmp + (Math.Pow((Y[j] - x_), 2));
+        //    }
+        //    return (1.0d / (N-1)) * tmp;
+        //}
 
         public double otsenka_sred_kvadr(double sr_otkl)
         {

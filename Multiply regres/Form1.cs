@@ -22,8 +22,9 @@ namespace Multiply_regres
             double[] sredn_kvadr_otkl;
             mas = ReadFileClass.read_and_results(openFileDialog1, dataGridView1);
             double sredn_kvadr_Y = 0;
+            //try
             #region Первичный анализ
-            try
+
             {
                 textBox1.Text = openFileDialog1.FileName;
                 int count_sign = mas.GetLength(0);
@@ -95,10 +96,11 @@ namespace Multiply_regres
                 s = regresParams.S2_Zal(Y, X, A);
                 for (int i = 0; i < A.Length; i++)
                 {
-                    double y_ = fs.S_non(Y);
-                    a__[i] = (Math.Sqrt(sredn_kvadr_otkl[i]) * A[i]) / (Math.Sqrt(y_) );
+                    double y_ = fs.S(mas, mas.GetLength(0) - 1);
+                    a__[i] = (fs.S(X, i) * A[i]) / (y_ ); 
                     dataGridView3.Rows[i].Cells[2].Value = (a__[i]); // стандартизированная оценка
-                    D[i] = (s) * inv_m.matrix[i, i];
+
+                    D[i] = s * inv_m.matrix[i, i];
                     dataGridView3.Rows[i].Cells[3].Value = Math.Sqrt(D[i]); // дисперсия
                     t[i] = A[i] / (Math.Sqrt(D[i])); // 
                     dataGridView3.Rows[i].Cells[4].Value = t[i]; // статистика
@@ -117,7 +119,7 @@ namespace Multiply_regres
             #region R2, F-тест, диагностическая диаграмма            
                 double n = mas.GetLength(0); // кол-во столбцов
                 double N = mas.GetLength(1); // кол-во строк  
-                double s_ = fs.S_non(Y);         
+                double s_ = fs.S(mas, mas.GetLength(0)-1); //fs.S_non(Y);         
                 double R_kvadrat = (1 - ((s) / (s_)) * ((N - n) / (N - 1))); // deleted -1 
                 label_R_value.Text = Math.Round(R_kvadrat, 7).ToString();
                 double F = ((N - n) / (n-1)) * ((1.0d / (1.0d - R_kvadrat)) - 1); //0.48510988
@@ -131,14 +133,14 @@ namespace Multiply_regres
                         mas2[l, k] = mas[l, k];
                     }
                 }
-                diagnosticChart.BuildChart(A, mas2, Y, chart1.Series[0]);
+                diagnosticChart.BuildChart(A, X, Y, chart1.Series[0]);
                 #endregion
             }
-            catch
-            {
-                MessageBox.Show("Выберите файл с данными", "Предупреждение");
-                int test = 33;
-            }
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Предупреждение");
+            //    int test = 33;
+            //}
         }
 
         private void Form1_Load(object sender, EventArgs e)
