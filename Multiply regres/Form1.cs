@@ -20,9 +20,8 @@ namespace Multiply_regres
         {
             double[,] mas;
             double[] sredn_kvadr_otkl;
-            mas = ReadFileClass.read_and_results(openFileDialog1, dataGridView1);
-            double sredn_kvadr_Y = 0;
-            //try
+            mas = ReadFileClass.read_and_results(openFileDialog1, dataGridView1);            
+            try
             #region Первичный анализ
 
             {
@@ -126,21 +125,21 @@ namespace Multiply_regres
                 label_F_value.Text = Math.Round(F, 7).ToString();
                 DiagnosticChart diagnosticChart = new DiagnosticChart();
                 double[,] mas2 = new double[mas.GetLength(0) - 1, mas.GetLength(1)];
-                for (int l = 0; l < mas2.GetLength(0); l++)
-                {
-                    for (int k = 0; k < mas2.GetLength(1); k++)
-                    {
-                        mas2[l, k] = mas[l, k];
-                    }
-                }
+                //for (int l = 0; l < mas2.GetLength(0); l++)
+                //{
+                //    for (int k = 0; k < mas2.GetLength(1); k++)
+                //    {
+                //        mas2[l, k] = mas[l, k];
+                //    }
+                //}
                 diagnosticChart.BuildChart(A, X, Y, chart1.Series[0]);
                 #endregion
             }
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Предупреждение");
-            //    int test = 33;
-            //}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Предупреждение");
+                int test = 33;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
