@@ -95,8 +95,8 @@ namespace Multiply_regres
                 s = regresParams.S2_Zal(Y, X, A);
                 for (int i = 0; i < A.Length; i++)
                 {
-                    double y_ = fs.S(mas, mas.GetLength(0) - 1);
-                    a__[i] = (fs.S(X, i) * A[i]) / (y_ ); 
+                    double y_ = fs.S(Matrix<double>.T_(mas), mas.GetLength(0) - 1); //fs.S(mas, mas.GetLength(0) - 1);
+                    a__[i] = (Math.Sqrt(fs.S(X, i)) * A[i]) /Math.Sqrt(y_ ); 
                     dataGridView3.Rows[i].Cells[2].Value = (a__[i]); // стандартизированная оценка
 
                     D[i] = s * inv_m.matrix[i, i];
@@ -118,20 +118,14 @@ namespace Multiply_regres
             #region R2, F-тест, диагностическая диаграмма            
                 double n = mas.GetLength(0); // кол-во столбцов
                 double N = mas.GetLength(1); // кол-во строк  
-                double s_ = fs.S(mas, mas.GetLength(0)-1); //fs.S_non(Y);         
+                double s_ = fs.S(Matrix<double>.T_(mas), mas.GetLength(0)-1); //fs.S_non(Y);         
                 double R_kvadrat = (1 - ((s) / (s_)) * ((N - n) / (N - 1))); // deleted -1 
                 label_R_value.Text = Math.Round(R_kvadrat, 7).ToString();
                 double F = ((N - n) / (n-1)) * ((1.0d / (1.0d - R_kvadrat)) - 1); //0.48510988
                 label_F_value.Text = Math.Round(F, 7).ToString();
                 DiagnosticChart diagnosticChart = new DiagnosticChart();
                 double[,] mas2 = new double[mas.GetLength(0) - 1, mas.GetLength(1)];
-                //for (int l = 0; l < mas2.GetLength(0); l++)
-                //{
-                //    for (int k = 0; k < mas2.GetLength(1); k++)
-                //    {
-                //        mas2[l, k] = mas[l, k];
-                //    }
-                //}
+                
                 diagnosticChart.BuildChart(A, X, Y, chart1.Series[0]);
                 #endregion
             }
