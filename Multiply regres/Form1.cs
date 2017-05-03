@@ -20,10 +20,10 @@ namespace Multiply_regres
         {
             double[,] mas;
             double[] sredn_kvadr_otkl;
-            mas = ReadFileClass.read_and_results(openFileDialog1, dataGridView1);
-            double sredn_kvadr_Y = 0;
-            #region Первичный анализ
+            mas = ReadFileClass.read_and_results(openFileDialog1, dataGridView1);            
             try
+            #region Первичный анализ
+
             {
                 textBox1.Text = openFileDialog1.FileName;
                 int count_sign = mas.GetLength(0);
@@ -95,10 +95,11 @@ namespace Multiply_regres
                 s = regresParams.S2_Zal(Y, X, A);
                 for (int i = 0; i < A.Length; i++)
                 {
-                    double y_ = fs.S_non(Y);
-                    a__[i] = (Math.Sqrt(sredn_kvadr_otkl[i]) * A[i]) / (Math.Sqrt(y_) );
+                    double y_ = fs.S(Matrix<double>.T_(mas), mas.GetLength(0) - 1); //fs.S(mas, mas.GetLength(0) - 1);
+                    a__[i] = (Math.Sqrt(fs.S(X, i)) * A[i]) /Math.Sqrt(y_ ); 
                     dataGridView3.Rows[i].Cells[2].Value = (a__[i]); // стандартизированная оценка
-                    D[i] = (s) * inv_m.matrix[i, i];
+
+                    D[i] = s * inv_m.matrix[i, i];
                     dataGridView3.Rows[i].Cells[3].Value = Math.Sqrt(D[i]); // дисперсия
                     t[i] = A[i] / (Math.Sqrt(D[i])); // 
                     dataGridView3.Rows[i].Cells[4].Value = t[i]; // статистика
@@ -117,26 +118,20 @@ namespace Multiply_regres
             #region R2, F-тест, диагностическая диаграмма            
                 double n = mas.GetLength(0); // кол-во столбцов
                 double N = mas.GetLength(1); // кол-во строк  
-                double s_ = fs.S_non(Y);         
+                double s_ = fs.S(Matrix<double>.T_(mas), mas.GetLength(0)-1); //fs.S_non(Y);         
                 double R_kvadrat = (1 - ((s) / (s_)) * ((N - n) / (N - 1))); // deleted -1 
                 label_R_value.Text = Math.Round(R_kvadrat, 7).ToString();
                 double F = ((N - n) / (n-1)) * ((1.0d / (1.0d - R_kvadrat)) - 1); //0.48510988
                 label_F_value.Text = Math.Round(F, 7).ToString();
                 DiagnosticChart diagnosticChart = new DiagnosticChart();
                 double[,] mas2 = new double[mas.GetLength(0) - 1, mas.GetLength(1)];
-                for (int l = 0; l < mas2.GetLength(0); l++)
-                {
-                    for (int k = 0; k < mas2.GetLength(1); k++)
-                    {
-                        mas2[l, k] = mas[l, k];
-                    }
-                }
-                diagnosticChart.BuildChart(A, mas2, Y, chart1.Series[0]);
+                
+                diagnosticChart.BuildChart(A, X, Y, chart1.Series[0]);
                 #endregion
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Выберите файл с данными", "Предупреждение");
+                MessageBox.Show(ex.Message, "Предупреждение");
                 int test = 33;
             }
         }
