@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Multiply_regres
 {
@@ -128,11 +129,19 @@ namespace Multiply_regres
                 
                 diagnosticChart.BuildChart(A, X, Y, chart1.Series[0]);
                 #endregion
+
+                #region Критерий Колмагорова
+                Kolmagorov kolm = new Kolmagorov();
+                kolm.DefineEmpFunc(mas);  
+                             
+                
+               
+                
+                #endregion
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Предупреждение");
-                int test = 33;
             }
         }
 
