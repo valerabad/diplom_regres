@@ -23,10 +23,29 @@ namespace Multiply_regres
             {
                 summX = x[sign, j] + summX;
             }
-            return (1.0d / N) * summX;           
+            return ((1.0d / N) * summX);           
         }
         // Средне квадратическое
         public double S(double[,] x, int sign)
+        {
+            int N = x.GetLength(1);
+            double tmp = 0;
+            for (int j = 0; j < N; j++)
+            {
+                tmp = tmp + x[sign, j];
+            }
+
+            double x_ = (1.0d / N) * tmp;
+            tmp = 0;
+            for (int j = 0; j < N; j++)
+            {
+                tmp = tmp + (Math.Pow((x[sign, j] - x_), 2));
+                //tmp = tmp +((x[sign, j] * x[sign, j] - x_ * x_));
+            }
+            return ((1.0d / (N-1)) * tmp); // для Колмагорова надо sqrt
+        }
+
+        public double S2(double[,] x, int sign)
         {
             int N = x.GetLength(0);
             double tmp = 0;
@@ -39,11 +58,10 @@ namespace Multiply_regres
             tmp = 0;
             for (int j = 0; j < N; j++)
             {
-                tmp = tmp + (Math.Pow((x[j, sign] - x_), 2));
-                //tmp = tmp +((x[sign, j] * x[sign, j] - x_ * x_));
+                tmp = tmp + (Math.Pow((x[j, sign] - x_), 2));                
             }
-            return (1.0d / (N-1)) * tmp;            
-        }        
+            return (1.0d / (N - 1)) * tmp;
+        }
 
         public double otsenka_sred_kvadr(double sr_otkl)
         {

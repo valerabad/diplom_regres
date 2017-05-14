@@ -22,7 +22,7 @@ namespace Multiply_regres
             double[,] mas;
             double[] sredn_kvadr_otkl;
             mas = ReadFileClass.read_and_results(openFileDialog1, dataGridView1);            
-            try
+             try
             #region Первичный анализ
 
             {
@@ -96,8 +96,8 @@ namespace Multiply_regres
                 s = regresParams.S2_Zal(Y, X, A);
                 for (int i = 0; i < A.Length; i++)
                 {
-                    double y_ = fs.S(Matrix<double>.T_(mas), mas.GetLength(0) - 1); //fs.S(mas, mas.GetLength(0) - 1);
-                    a__[i] = (Math.Sqrt(fs.S(X, i)) * A[i]) /Math.Sqrt(y_ ); 
+                    double y_ = fs.S2(Matrix<double>.T_(mas), mas.GetLength(0) - 1); //fs.S(mas, mas.GetLength(0) - 1);
+                    a__[i] = (Math.Sqrt(fs.S2(X, i)) * A[i]) /Math.Sqrt(y_ ); 
                     dataGridView3.Rows[i].Cells[2].Value = (a__[i]); // стандартизированная оценка
 
                     D[i] = s * inv_m.matrix[i, i];
@@ -119,7 +119,7 @@ namespace Multiply_regres
             #region R2, F-тест, диагностическая диаграмма            
                 double n = mas.GetLength(0); // кол-во столбцов
                 double N = mas.GetLength(1); // кол-во строк  
-                double s_ = fs.S(Matrix<double>.T_(mas), mas.GetLength(0)-1); //fs.S_non(Y);         
+                double s_ = fs.S2(Matrix<double>.T_(mas), mas.GetLength(0)-1); //fs.S_non(Y);         
                 double R_kvadrat = (1 - ((s) / (s_)) * ((N - n) / (N - 1))); // deleted -1 
                 label_R_value.Text = Math.Round(R_kvadrat, 7).ToString();
                 double F = ((N - n) / (n-1)) * ((1.0d / (1.0d - R_kvadrat)) - 1); //0.48510988
@@ -131,12 +131,10 @@ namespace Multiply_regres
                 #endregion
 
                 #region Критерий Колмагорова
-                Kolmagorov kolm = new Kolmagorov();
-                kolm.DefineEmpFunc(mas);  
-                             
-                
+                Kolmagorov kolm = new Kolmagorov(mas);
+                kolm.DefineEmpFunc(mas);
+                double k = kolm.K();
                
-                
                 #endregion
             }
             catch (Exception ex)
