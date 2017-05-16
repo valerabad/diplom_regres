@@ -20,11 +20,13 @@ namespace Multiply_regres
         private void button1_Click(object sender, EventArgs e)
         {
             double[,] mas;
+            // 2 массива для среднеего и среднеквадартического откл. 
+            // Нужно для передачи для вычисления функции нормального распределения
             double[] sredn_kvadr_otkl;
+            double[] srednee;
             mas = ReadFileClass.read_and_results(openFileDialog1, dataGridView1);            
              try
             #region Первичный анализ
-
             {
                 textBox1.Text = openFileDialog1.FileName;
                 int count_sign = mas.GetLength(0);
@@ -38,12 +40,14 @@ namespace Multiply_regres
                 }
 
                 sredn_kvadr_otkl = new double[count_sign];
+                srednee = new double[count_sign];
 
                 for (int i = 0; i < count_sign; i++)
                 {
                     //среднее  
-                    double x_ = Math.Round(fs.srednee(mas, i), 4);
-                    dataGridView2.Rows[0].Cells[i + 1].Value = Convert.ToString(x_);
+                    double x_ = fs.srednee(mas, i);
+                    srednee[i] = x_;
+                    dataGridView2.Rows[0].Cells[i + 1].Value = Convert.ToString(Math.Round(x_));
                     // доверительные интeрвалы
                     double a = Math.Round(fs.IntervalForSrednee_A(x_), 2);
                     double b = Math.Round(fs.IntervalForSrednee_B(x_), 2);
@@ -131,7 +135,7 @@ namespace Multiply_regres
                 #endregion
 
                 #region Критерий Колмагорова
-                Kolmagorov kolm = new Kolmagorov(mas);
+                Kolmagorov kolm = new Kolmagorov(mas, sredn_kvadr_otkl, srednee);
                 kolm.DefineEmpFunc(mas);
                 double k = kolm.K();
                

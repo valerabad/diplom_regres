@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 namespace Multiply_regres
 {
     class Kolmagorov
-    {
-        
+    {        
         Dictionary<double, int> varList;
         Dictionary<double, double> empList;
         static int N;
         double[,] mas;
+        double[] s; // массив среднеквадртических отклонений
+        double[] m; // массив средних      
 
         const double b1 = 0.31938153;
         const double b2 = -0.356563782;
@@ -21,10 +22,15 @@ namespace Multiply_regres
         const double b4 = -1.821255978;
         const double b5 = 1.330274429;
 
-        public Kolmagorov(double[,] mas)
+        public Kolmagorov(double[,] mas, double[] S, double[] m)
         {
-            this.mas = mas;
-            lstF_and_FI = new List<double>();
+            this.mas = mas;            
+            this.m = m;
+            this.s = new double[S.Length];
+            for (int i = 0; i < S.Length; i++)
+            {
+                this.s[i] = Math.Sqrt(S[i]);                    
+            }            
         }
 
         public void VarSeries(double[,] mas)
@@ -116,8 +122,10 @@ namespace Multiply_regres
         {
             FirstAnalis fs = new FirstAnalis(mas);
             double s = Math.Sqrt(fs.S(mas, 0));
-            //double s = (964.8965d);  //274.5605 964.8965
-            double m = fs.srednee(mas, 0);
+            //double s = this.s[0]; // здесь уже Sqrt, см. конструктор
+            //double s = (964.8965d);  //274.5605 964.8965 // тесты для файла 2.txt
+            //double m = fs.srednee(mas, 0);
+            double m = this.m[0];
             return (x - m) / s;
         }
 
@@ -133,7 +141,8 @@ namespace Multiply_regres
                 
                 double a = Math.Pow((-1), k) * a0;
                 double b = (2 * k * k * z) / (3 * Math.Sqrt(N)) ;
-                double c = 1 / (18 * N) / ( (f1 - 4 * (f1 + 3)) * k * k * z * z + 8 * Math.Pow(k, 4) * Math.Pow(z, 4));
+                // если не поставить .0d , то с=0
+                double c = 1.0d / (18.0d * N) / ( (f1 - 4.0d * (f1 + 3.0d)) * k * k * z * z + 8.0d * Math.Pow(k, 4) * Math.Pow(z, 4));
                 double d = (k * k * z) / (27 * Math.Sqrt(N * N * N)) * (f2 * f2 / 5 - 4 * (f2 + 45) * k * k * z * z / 15 + 8 * Math.Pow(k, 4) * Math.Pow(z, 4));
                 tmp += a * (1 - b - c + d);
             }
@@ -164,10 +173,11 @@ namespace Multiply_regres
         }
 
         string writePath = @"D:\tmp.txt";
-        List<double> lstF_and_FI;
+        
         public double D1()
         {
             double[] x = SortMas(mas);
+            List<double> lst = new List<double>();
             StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default);
             for (int i = 0; i < N; i++) // от 1 или от 0 ?
             {
@@ -176,10 +186,10 @@ namespace Multiply_regres
                 sw.Write(x[i]+ "    " + empFunction + "     "+ normRaspr);
                 sw.WriteLine();
                 double item = Math.Abs(empFunction - normRaspr);
-                lstF_and_FI.Add(item);
+                lst.Add(item);
             }
             sw.Close();
-            return lstF_and_FI.Max();
+            return lst.Max();
         }
 
         public double D2()
