@@ -136,8 +136,8 @@ namespace Multiply_regres
 
                 #region Критерий Колмагорова
                 Kolmagorov kolm = new Kolmagorov(mas, sredn_kvadr_otkl, srednee);
-                kolm.DefineEmpFunc(mas);
-                double k = kolm.K();
+                //kolm.DefineEmpFunc(mas);
+                Kolmagorov.xt_list k = kolm.K();
                
                 #endregion
             }
