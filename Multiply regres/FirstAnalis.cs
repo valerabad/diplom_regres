@@ -25,6 +25,18 @@ namespace Multiply_regres
             }
             return ((1.0d / N) * summX);           
         }
+
+        public double srednee(double[] x)
+        {
+            int N = x.Length;
+            double summX = 0;
+            for (int j = 0; j < N; j++)
+            {
+                summX = x[j] + summX;
+            }
+            return ((1.0d / N) * summX);
+        }
+
         // Средне квадратическое
         public double S(double[,] x, int sign)
         {
@@ -43,6 +55,26 @@ namespace Multiply_regres
                 //tmp = tmp +((x[sign, j] * x[sign, j] - x_ * x_));
             }
             return ((1.0d / (N-1)) * tmp); // для Колмагорова надо sqrt
+        }
+
+        // Средне квадратическое
+        public double S(double[] x)
+        {
+            int N = x.Length;
+            double tmp = 0;
+            for (int j = 0; j < N; j++)
+            {
+                tmp = tmp + x[j];
+            }
+
+            double x_ = (1.0d / N) * tmp;
+            tmp = 0;
+            for (int j = 0; j < N; j++)
+            {
+                tmp = tmp + (Math.Pow((x[j] - x_), 2));
+                //tmp = tmp +((x[sign, j] * x[sign, j] - x_ * x_));
+            }
+            return ((1.0d / (N - 1)) * tmp); // для Колмагорова надо sqrt
         }
 
         public double S2(double[,] x, int sign)

@@ -56,11 +56,14 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Kolmagorov.cs" />
+    <Compile Include="Kolmagorov1.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="P_Lambda.cs" />
     <Compile Include="ReadFileClass.cs" />
     <Compile Include="RegressionParams.cs" />
+    <Compile Include="ResultPLP.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
