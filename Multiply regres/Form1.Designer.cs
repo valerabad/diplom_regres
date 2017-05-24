@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title9 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
@@ -50,9 +50,9 @@
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.button2 = new System.Windows.Forms.Button();
-            this.dataGridView4 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -135,7 +135,7 @@
             this.tabControl1.Location = new System.Drawing.Point(-2, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(852, 472);
+            this.tabControl1.Size = new System.Drawing.Size(886, 600);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPage1
@@ -148,7 +148,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(886, 560);
+            this.tabPage1.Size = new System.Drawing.Size(878, 574);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Первичный статистический анализ";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -164,7 +164,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(886, 560);
+            this.tabPage2.Size = new System.Drawing.Size(878, 574);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Оценки параметров регрессии";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -208,26 +208,26 @@
             // 
             // chart1
             // 
-            chartArea9.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea9);
-            legend9.MaximumAutoSize = 70F;
-            legend9.Name = "Legend1";
-            legend9.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Tall;
-            legend9.TitleAlignment = System.Drawing.StringAlignment.Far;
-            this.chart1.Legends.Add(legend9);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.MaximumAutoSize = 70F;
+            legend2.Name = "Legend1";
+            legend2.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Tall;
+            legend2.TitleAlignment = System.Drawing.StringAlignment.Far;
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(10, 243);
             this.chart1.Name = "chart1";
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series9.LabelForeColor = System.Drawing.Color.DarkRed;
-            series9.Legend = "Legend1";
-            series9.Name = "Series1";
-            this.chart1.Series.Add(series9);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series2.LabelForeColor = System.Drawing.Color.DarkRed;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(756, 280);
             this.chart1.TabIndex = 1;
             this.chart1.Text = "chart1";
-            title9.Name = "Title1";
-            this.chart1.Titles.Add(title9);
+            title2.Name = "Title1";
+            this.chart1.Titles.Add(title2);
             // 
             // dataGridView3
             // 
@@ -245,10 +245,19 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(844, 446);
+            this.tabPage3.Size = new System.Drawing.Size(878, 574);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Трансформация Бокса-Кокса. Поиск λ";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView4
+            // 
+            this.dataGridView4.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView4.Location = new System.Drawing.Point(26, 400);
+            this.dataGridView4.Name = "dataGridView4";
+            this.dataGridView4.Size = new System.Drawing.Size(323, 154);
+            this.dataGridView4.TabIndex = 4;
             // 
             // tabControl2
             // 
@@ -262,7 +271,7 @@
             this.tabControl2.RightToLeftLayout = true;
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.ShowToolTips = true;
-            this.tabControl2.Size = new System.Drawing.Size(777, 257);
+            this.tabControl2.Size = new System.Drawing.Size(777, 346);
             this.tabControl2.TabIndex = 3;
             // 
             // button2
@@ -275,20 +284,11 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // dataGridView4
-            // 
-            this.dataGridView4.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.Location = new System.Drawing.Point(26, 300);
-            this.dataGridView4.Name = "dataGridView4";
-            this.dataGridView4.Size = new System.Drawing.Size(323, 154);
-            this.dataGridView4.TabIndex = 4;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(896, 633);
+            this.ClientSize = new System.Drawing.Size(896, 634);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Восстановление линейной многомерной регрессии";
