@@ -167,8 +167,7 @@
             this.tabPage2.Size = new System.Drawing.Size(878, 574);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Оценки параметров регрессии";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+            this.tabPage2.UseVisualStyleBackColor = true;            
             // 
             // label_F_value
             // 
@@ -252,10 +251,14 @@
             // 
             // dataGridView4
             // 
-            this.dataGridView4.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView4.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView4.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView4.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView4.Location = new System.Drawing.Point(26, 400);
             this.dataGridView4.Name = "dataGridView4";
+            this.dataGridView4.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dataGridView4.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridView4.Size = new System.Drawing.Size(323, 154);
             this.dataGridView4.TabIndex = 4;
             // 

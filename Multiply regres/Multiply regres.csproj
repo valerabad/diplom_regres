@@ -46,14 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ButtonFindLambda.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DiagnosticChart.cs" />
     <Compile Include="FindLambda.cs" />
     <Compile Include="FirstAnalis.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Controls\ButtonLoadData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Controls\ButtonLoadData.Designer.cs">
+      <DependentUpon>ButtonLoadData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FormLoad.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Kolmagorov.cs" />
     <Compile Include="Kolmagorov1.cs" />
@@ -64,8 +70,8 @@
     <Compile Include="ReadFileClass.cs" />
     <Compile Include="RegressionParams.cs" />
     <Compile Include="ResultPLP.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\ButtonLoadData.resx">
+      <DependentUpon>ButtonLoadData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -89,6 +95,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

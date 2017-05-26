@@ -101,12 +101,10 @@ namespace Multiply_regres
         }
 
         public double asimetria(int sign)
-        {
-            double res;
+        {            
             double tmp = 0;
             int N = mas.GetLength(1);
-            double x_sred = this.srednee(mas, sign);
-            int k = 0;
+            double x_sred = this.srednee(mas, sign);         
             for (int j = 0; j < N; j++)
             {               
                 tmp += Math.Pow(mas[sign, j] - x_sred,3);
@@ -119,8 +117,7 @@ namespace Multiply_regres
         {
             double tmp = 0;
             int N = mas.GetLength(1);
-            double x_sred = this.srednee(mas, sign);
-            int k = 0;
+            double x_sred = this.srednee(mas, sign);            
             for (int j = 0; j < N; j++)
             {
                 tmp += Math.Pow(mas[sign, j] - x_sred, 4);

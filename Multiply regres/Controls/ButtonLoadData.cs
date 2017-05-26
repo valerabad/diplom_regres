@@ -155,43 +155,9 @@ namespace Multiply_regres
             {
                 MessageBox.Show(ex.Message, "Предупреждение");
             }
-        }
-        delegate double[] test(double[] x, double lambda);          
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            // таблица первичного статистического анализа
-            this.dataGridView2.RowCount = 8;
-            this.dataGridView2.ColumnCount = 3;
-            this.dataGridView2.Rows[0].HeaderCell.Value = string.Format("Среднее");
-            this.dataGridView2.Rows[2].HeaderCell.Value = string.Format("Среднеквадратическое");
-            this.dataGridView2.Rows[4].HeaderCell.Value = string.Format("Асимметрия");
-            this.dataGridView2.Rows[6].HeaderCell.Value = string.Format("Эксцесс");
-            for (int i = 0; i < 7; i = i + 2)
-            {
-                this.dataGridView2.Rows[i].Cells[0].Value = "Оценка";
-                this.dataGridView2.Rows[i + 1].Cells[0].Value = "Дов. интервал";
-            }
+        }                    
 
-            // таблица на вкладке 2 - оценка параметров регрессии
-            this.dataGridView3.RowCount = 2; // пока 2, неизвестен массив A
-            this.dataGridView3.ColumnCount = 8;
-            this.dataGridView3.Columns[0].HeaderCell.Value = string.Format("α");
-            this.dataGridView3.Columns[1].HeaderCell.Value = string.Format("Оценка");
-            this.dataGridView3.Columns[2].HeaderCell.Value = string.Format("Стандартизированная оценка");
-            this.dataGridView3.Columns[3].HeaderCell.Value = string.Format("Среднеквадратическое отклонение");
-            this.dataGridView3.Columns[4].HeaderCell.Value = string.Format("Статистика");
-            this.dataGridView3.Columns[5].HeaderCell.Value = string.Format("Квантиль");
-            this.dataGridView3.Columns[6].HeaderCell.Value = string.Format("Значимость");
-            this.dataGridView3.Columns[7].HeaderCell.Value = string.Format("Доверительный интервал");
-            this.dataGridView3.Columns[0].Width = 25;                      
-        }
-
-        private void tabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-         void WaitMethod()
+        void WaitMethod()
         {
             //lock (this.label2)
 
@@ -206,118 +172,28 @@ namespace Multiply_regres
 
 
                 label2.Text = "Подождите, идёт поиск ...";
-            }
-           
-            
+            }                      
         }
 
-        List<ResultPLP> resultListPLP = new List<ResultPLP>();
-        private void button2_Click(object sender, EventArgs e)
+        private static bool NegativeNumbers(float lambda)
         {
-            Thread thread = new Thread(new ThreadStart(WaitMethod));
-            thread.Start();
-            //thread.Join();
-            //label2.Text = "Подождите, идёт поиск ...";
-            int count_sign = mas.GetLength(0);
-            int N = mas.GetLength(1);
-
-            // таблица для трансформации Бокса-Кокса
-            this.dataGridView4.RowCount = 3;
-            this.dataGridView4.ColumnCount = count_sign;
-            this.dataGridView4.Rows[0].HeaderCell.Value = string.Format("P");
-            this.dataGridView4.Rows[1].HeaderCell.Value = string.Format("λ оптимальное");
-            this.dataGridView4.Rows[2].HeaderCell.Value = string.Format("P оптимальное");
-            dataGridView4.AutoSize = true;
-            for (int l = 0; l < count_sign; l++)
-            {
-                dataGridView4.Columns[l].HeaderCell.Value = string.Format("Признак " + (l + 1).ToString());
-            }
-
-            FindLambda fl = new FindLambda();
-            List<float> lstLambda = fl.GenerateLambdaList(-3, 3, 0.05f);
-
-
-            List<double[]> list_x = new List<double[]>();
-            for (int i = 0; i < count_sign; i++)
-            {
-
-                double[] x = new double[mas.GetLength(1)];
-                for (int j = 0; j < N; j++)
-                {
-                    x[j] = mas[i, j];
-                }
-                list_x.Add(x);
-
-            }
-            resultListPLP = new List<ResultPLP>(); // для каждого файла - новый
-            SortedSet<P_Lambda> lst_pLambda;// = new List<P_Lambda>();
-
-
-            //tabControl2.TabPages.Add(0.ToString(), "G"); // test
-
-            FirstAnalis fs = new FirstAnalis(mas);
-            Chart chart;
-            ChartArea chartArea;
-            tabControl2.TabPages.Clear();
-            for (int i = 0; i < count_sign; i++)
-            {
-                
-                lst_pLambda = new SortedSet<P_Lambda>(); // нужно обнулять
-
-                Kolmagorov1 kolm_x = new Kolmagorov1(list_x.ElementAt(i), sredn_kvadr_otkl[i], srednee[i]);
-                double kz_begin = kolm_x.K();
-                double P_begin = 1 - kz_begin;
-
-
-                tabControl2.TabPages.Add(i.ToString(), "Признак "+(i+1).ToString());
-                chart = new Chart();
-                chartArea = new ChartArea();
-                //this.tabPage3.Controls.Add(chart);
-                chart.ChartAreas.Add(chartArea);
-
-                chart.Parent = tabControl2.TabPages[i]; //i-1 // test
-
-                //chart.Location = new System.Drawing.Point(26, 415);
-                chart.Name = "chart"+i.ToString();
-                chart.Size = new System.Drawing.Size(chart.Parent.Size.Width, 
-                                                     chart.Parent.Size.Height);
-        
-                      
-                chart.Series.Add("Признак "+i.ToString());
-                chart.Series[0].ChartType = SeriesChartType.Point;
-
-                double d = Math.Pow(-3,-3);
-
-                foreach (var lambda in lstLambda)
-                    {                    
-                        double[] t_ = FindLambda.t(list_x.ElementAt(i), lambda);
-                        double sred = fs.srednee(t_); //i=0
-                        double sred_kvadr = fs.S(t_); // i=0
-                        Kolmagorov1 kolm1 = new Kolmagorov1(t_, sred_kvadr, sred);
-
-                        double kz = kolm1.K();
-                    
-                        lst_pLambda.Add(new P_Lambda(1 - kz, lambda));
-                   
-                    
-
-                        chart.Series[0].Points.AddXY(Math.Round(lambda,2), 1-kz);
-                    //chart2.Series[0].AxisLabel = "test";                               
-                
-                    }
-           
-                //lst_pLambda.Sort();
-                double max_P = lst_pLambda.ElementAt(lst_pLambda.Count-1).P; // переделать, поиск максимального P и соответстующего лямбда
-                double opt_lambda = lst_pLambda.ElementAt(lst_pLambda.Count - 1).lambda;
-                resultListPLP.Add(new ResultPLP(P_begin, opt_lambda, max_P)); // добавили инфо по первому признаку 1 файла
-                dataGridView4.Rows[0].Cells[i].Value = P_begin;
-                dataGridView4.Rows[1].Cells[i].Value = opt_lambda;
-                dataGridView4.Rows[2].Cells[i].Value = max_P;
-            }
-
-            thread.Abort();
-            label1.Text = "Выполнено";
+            return lambda <= 0;            
         }
+
+        private bool isExistNegativeNumbers(double[] x)
+        {
+            bool flag = true;
+            foreach (var n in x)
+            {
+                if (n < 0)
+                {
+                    flag = true;
+                    break;
+                }
+                else flag = false; 
+            }
+            return flag;
+        }               
 
         private void chart2_Click(object sender, EventArgs e)
         {
@@ -325,17 +201,3 @@ namespace Multiply_regres
         }
     }
 }
-
-//test del = delegate (double[] x, double lambda)
-//{
-//    int N_ = x.Length;
-//    double[] t_ = new double[N_];
-//    for (int j = 0; j < N; j++)
-//    {
-//        if (lambda != 0)
-//            t[j] = (Math.Pow(x[j], lambda) - 1) / lambda;
-//        else
-//            t[j] = Math.Log(x[j]);
-//    }
-//    return t;
-//};

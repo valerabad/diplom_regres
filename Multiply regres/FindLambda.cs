@@ -14,9 +14,20 @@ namespace Multiply_regres
             double[] t = new double[N];
             lambda = Math.Round(lambda, 2);
             for (int i = 0; i < N; i++)
-            {           
+            {
                 if (lambda != 0)
-                    t[i] = (Math.Pow(x[i], lambda) - 1.0d) / lambda;
+                {
+                    double tmp;
+                    if (x[i] < 0)
+                        tmp = -Math.Pow(-x[i], lambda);
+                    else
+                        tmp = Math.Pow(x[i], lambda);
+                   
+                    tmp = tmp - 1.0d;
+                    tmp = tmp / lambda;
+                    t[i] = tmp;
+                }
+                    //t[i] = ( - 1.0d) / lambda;
                 else
                     t[i] = Math.Log(x[i]);
             }
