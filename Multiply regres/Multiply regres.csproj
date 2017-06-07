@@ -49,6 +49,9 @@
     <Compile Include="Controls\ButtonFindLambda.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Controls\StepRegresSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DiagnosticChart.cs" />
     <Compile Include="FindLambda.cs" />
     <Compile Include="FirstAnalis.cs" />
@@ -70,6 +73,9 @@
     <Compile Include="ReadFileClass.cs" />
     <Compile Include="RegressionParams.cs" />
     <Compile Include="ResultPLP.cs" />
+    <Compile Include="StepRegres\QuantileFisher.cs" />
+    <Compile Include="StepRegres\Sign.cs" />
+    <Compile Include="StepRegres\SelectingSigns.cs" />
     <EmbeddedResource Include="Controls\ButtonLoadData.resx">
       <DependentUpon>ButtonLoadData.cs</DependentUpon>
     </EmbeddedResource>

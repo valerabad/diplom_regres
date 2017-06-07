@@ -24,17 +24,22 @@ namespace Multiply_regres
         double[,] mas;
         double[] sredn_kvadr_otkl;
         double[] srednee;
+        double[] t;
 
-        public static int counter;
-        private void button1_Click(object sender, EventArgs e)
+        public static int counter;              
+
+        // первичный статистический анализ + восстановление регрессии
+        private void загрузитьДанныеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            StepRegres.QuantileFisher quantileFisher = new StepRegres.QuantileFisher();
+            double z = quantileFisher.z(0.1d, 1.0d, 120.0d);
+            
             // 2 массива для среднеего и среднеквадартического откл. 
             // Нужно для передачи для вычисления функции нормального распределения           
 
             mas = ReadFileClass.read_and_results(openFileDialog1, dataGridView1);            
-             try
-            #region Первичный анализ
+            try
+              #region Первичный анализ
             {
                 textBox1.Text = openFileDialog1.FileName;
                 int count_sign = mas.GetLength(0);
@@ -82,7 +87,7 @@ namespace Multiply_regres
                 }
                 #endregion
 
-            #region расчёт оценок регрессии
+              #region расчёт оценок регрессии
                 //checked, 0 - кол-во столбцов         
                 double[] A; // = new double[mas.GetLength(0)];                      
 
@@ -96,15 +101,17 @@ namespace Multiply_regres
                 this.dataGridView3.RowCount = A.Length;
                 for (int i = 0; i < A.Length; i++)
                 {
+                    this.dataGridView3.Rows[i].HeaderCell.Value = string.Format("x_"+i);
                     dataGridView3.Rows[i].Cells[0].Value = i;
                     dataGridView3.Rows[i].Cells[1].Value = A[i];
                 }
 
                 //статистика
+                t = new double[A.Length]; // выносим в класс для доступа из вне
                 double s;
                 double[] a__ = new double[A.Length];
                 double[] D = new double[A.Length];
-                double[] t = new double[A.Length];
+                
                 s = regresParams.S2_Zal(Y, X, A);
                 for (int i = 0; i < A.Length; i++)
                 {
@@ -128,7 +135,7 @@ namespace Multiply_regres
                 }
                 #endregion
             
-            #region R2, F-тест, диагностическая диаграмма            
+              #region R2, F-тест, диагностическая диаграмма            
                 double n = mas.GetLength(0); // кол-во столбцов
                 double N = mas.GetLength(1); // кол-во строк  
                 double s_ = fs.S2(Matrix<double>.T_(mas), mas.GetLength(0)-1); //fs.S_non(Y);         
@@ -137,19 +144,12 @@ namespace Multiply_regres
                 double F = ((N - n) / (n-1)) * ((1.0d / (1.0d - R_kvadrat)) - 1); //0.48510988
                 label_F_value.Text = Math.Round(F, 7).ToString();
                 DiagnosticChart diagnosticChart = new DiagnosticChart();
-                double[,] mas2 = new double[mas.GetLength(0) - 1, mas.GetLength(1)];
+                //double[,] mas2 = new double[mas.GetLength(0) - 1, mas.GetLength(1)];
                 
                 diagnosticChart.BuildChart(A, X, Y, chart1.Series[0]);
                 #endregion
 
-                //#region Критерий Колмагорова
-                //Kolmagorov kolm = new Kolmagorov(mas, sredn_kvadr_otkl, srednee);
-                ////kolm.DefineEmpFunc(mas);
-                //Kolmagorov.xt_list k = kolm.K();
-
-                //#endregion
-
-                
+              StepRegresInvoke();
             }
             catch (Exception ex)
             {
@@ -159,18 +159,22 @@ namespace Multiply_regres
 
         void WaitMethod()
         {
-            //lock (this.label2)
+            lock (this)
 
             {
+                //MessageBox.Show("test","test2",);
+                
                 Label label2 = new Label();
+                //label2.Parent = this;
                 label2.AutoSize = true;
-                label2.Location = new System.Drawing.Point(315, 510);
+                label2.Location = new System.Drawing.Point(431, 606);
                 label2.Name = "label2";
-                label2.Size = new System.Drawing.Size(10, 13);
+                label2.Size = new System.Drawing.Size(40,20);
                 label2.TabIndex = 9;
                 label2.Text = " ";
+                this.Controls.Add(label2);
 
-
+                //button3.Text = "test";
                 label2.Text = "Подождите, идёт поиск ...";
             }                      
         }
@@ -198,6 +202,21 @@ namespace Multiply_regres
         private void chart2_Click(object sender, EventArgs e)
         {
 
+        }       
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void пошаговаяРегрессияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FindingLambda();
         }
     }
 }

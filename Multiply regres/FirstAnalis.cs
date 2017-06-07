@@ -10,10 +10,12 @@ namespace Multiply_regres
     {
         double[,] mas;
         int N = 0;
+        public static int N_ = 0;
         public FirstAnalis(double[,] mas)
         {
             this.mas = mas;
             this.N = mas.GetLength(1);
+            N_ = this.N;
         }
         public double srednee(double[,] x, int sign)
         {

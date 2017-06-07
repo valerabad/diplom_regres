@@ -1,21 +1,47 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Threading.Tasks;
 
 namespace Multiply_regres
 {
+    
+
     public partial class Form1 : Form
     {
+        //class Worker
+        //{
+        //    public static string SomeLongOperation(IProgress<string> progress)
+        //    {
+        //        // Perform a long running work...
+        //        //for (var i = 0; i < 10; i++)
+        //        //{
+        //        //    Task.Delay(500).Wait();
+        //        //    progress.Report(i.ToString());
+        //        //}
+        //         FindingLambda();
+        //        return "подождите...";
+        //    }
+        //}
+
+        public string SomeLongOperation(IProgress<string> progress)
+        {
+            // Perform a long running work...
+            //for (var i = 0; i < 10; i++)
+            //{
+            //    Task.Delay(500).Wait();
+            //    progress.Report(i.ToString());
+            //}
+            FindingLambda();
+            return "подождите...";
+        }
         List<ResultPLP> resultListPLP = new List<ResultPLP>();
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //Thread thread = new Thread(new ThreadStart(WaitMethod));
-            //thread.Start();
-            //thread.Join();
-            //label2.Text = "Подождите, идёт поиск ...";
+        public void FindingLambda()
+        {            
             int count_sign = mas.GetLength(0);
             int N = mas.GetLength(1);
 
@@ -131,5 +157,25 @@ namespace Multiply_regres
                 dataGridView4.Rows[2].Cells[i].Value = max_P;
             }
         }
+
+        //private void button2_Click(object sender, EventArgs e)
+        //{
+        //    //FindingLambda();
+        //    //var progress = new Progress<string>(s => label2.Text = s);
+        //    //(new Thread((s) =>
+        //    //{
+        //    //    var result = SomeLongOperation(progress);
+
+        //    //    this.label2.BeginInvoke((MethodInvoker)(() => this.label2.Text = result));
+
+        //    //})).Start();
+
+        //    //WaitMethod();
+        //    //Thread thread = new Thread(new ThreadStart(WaitMethod));
+        //    //thread.Start();
+
+        //    //label2.Text = "Подождите, идёт поиск ...";
+
+        //}
     }
 }
