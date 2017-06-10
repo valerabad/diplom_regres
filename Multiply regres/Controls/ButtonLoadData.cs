@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms.DataVisualization.Charting;
+using System.Threading;
 
 namespace Multiply_regres
 {
@@ -17,16 +20,48 @@ namespace Multiply_regres
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        /// 
+        double[,] mas;
+        double[] sredn_kvadr_otkl;
+        double[] srednee;
+        double[] t;
+
+        public static int counter;              
+
+        // первичный статистический анализ + восстановление регрессии
+        private void загрузитьДанныеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            double[,] mas;
+            // отчистка таблиц от предыдущих вычислений
+            for (int i = 0; i < dataGridView6.RowCount; i++)
+            {
+                for (int j = 0; j < dataGridView6.ColumnCount; j++)
+                {
+                    dataGridView6.Rows[i].Cells[j].Value = "";
+                }
+            }
+
+            for (int i = 0; i < dataGridView7.RowCount; i++)
+            {
+                for (int j = 0; j < dataGridView7.ColumnCount; j++)
+                {
+                    dataGridView7.Rows[i].Cells[j].Value = "";
+                }
+            }
+
+
+            пошаговаяРегрессияToolStripMenuItem.Enabled = false;
+            поПреобразованнымДаннымToolStripMenuItem.Enabled = false;
+            пошаговымМетодомToolStripMenuItem.Enabled = false;
+
+            StepRegres.QuantileFisher quantileFisher = new StepRegres.QuantileFisher();
+            double z = quantileFisher.z(0.1d, 1.0d, 120.0d);
+            
             // 2 массива для среднеего и среднеквадартического откл. 
-            // Нужно для передачи для вычисления функции нормального распределения
-            double[] sredn_kvadr_otkl;
-            double[] srednee;
+            // Нужно для передачи для вычисления функции нормального распределения           
+
             mas = ReadFileClass.read_and_results(openFileDialog1, dataGridView1);            
-             try
-            #region Первичный анализ
+            //try
+              #region Первичный анализ
             {
                 textBox1.Text = openFileDialog1.FileName;
                 int count_sign = mas.GetLength(0);
@@ -74,7 +109,7 @@ namespace Multiply_regres
                 }
                 #endregion
 
-            #region расчёт оценок регрессии
+              #region расчёт оценок регрессии
                 //checked, 0 - кол-во столбцов         
                 double[] A; // = new double[mas.GetLength(0)];                      
 
@@ -88,15 +123,17 @@ namespace Multiply_regres
                 this.dataGridView3.RowCount = A.Length;
                 for (int i = 0; i < A.Length; i++)
                 {
+                    this.dataGridView3.Rows[i].HeaderCell.Value = string.Format("x_"+i);
                     dataGridView3.Rows[i].Cells[0].Value = i;
                     dataGridView3.Rows[i].Cells[1].Value = A[i];
                 }
 
                 //статистика
+                t = new double[A.Length]; // выносим в класс для доступа из вне
                 double s;
                 double[] a__ = new double[A.Length];
                 double[] D = new double[A.Length];
-                double[] t = new double[A.Length];
+                
                 s = regresParams.S2_Zal(Y, X, A);
                 for (int i = 0; i < A.Length; i++)
                 {
@@ -120,7 +157,7 @@ namespace Multiply_regres
                 }
                 #endregion
             
-            #region R2, F-тест, диагностическая диаграмма            
+              #region R2, F-тест, диагностическая диаграмма            
                 double n = mas.GetLength(0); // кол-во столбцов
                 double N = mas.GetLength(1); // кол-во строк  
                 double s_ = fs.S2(Matrix<double>.T_(mas), mas.GetLength(0)-1); //fs.S_non(Y);         
@@ -129,57 +166,119 @@ namespace Multiply_regres
                 double F = ((N - n) / (n-1)) * ((1.0d / (1.0d - R_kvadrat)) - 1); //0.48510988
                 label_F_value.Text = Math.Round(F, 7).ToString();
                 DiagnosticChart diagnosticChart = new DiagnosticChart();
-                double[,] mas2 = new double[mas.GetLength(0) - 1, mas.GetLength(1)];
+                //double[,] mas2 = new double[mas.GetLength(0) - 1, mas.GetLength(1)];
                 
                 diagnosticChart.BuildChart(A, X, Y, chart1.Series[0]);
                 #endregion
 
-                #region Критерий Колмагорова
-                Kolmagorov kolm = new Kolmagorov(mas, sredn_kvadr_otkl, srednee);
-                //kolm.DefineEmpFunc(mas);
-                Kolmagorov.xt_list k = kolm.K();
-               
-                #endregion
+                пошаговаяРегрессияToolStripMenuItem.Enabled = true;
+                StepRegresInvoke(mas, false);
             }
-            catch (Exception ex)
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Предупреждение");
+            //}
+        }                    
+
+        void WaitMethod()
+        {
+            lock (this)
+
             {
-                MessageBox.Show(ex.Message, "Предупреждение");
-            }
+                //MessageBox.Show("test","test2",);
+                
+                Label label2 = new Label();
+                //label2.Parent = this;
+                label2.AutoSize = true;
+                label2.Location = new System.Drawing.Point(431, 606);
+                label2.Name = "label2";
+                label2.Size = new System.Drawing.Size(40,20);
+                label2.TabIndex = 9;
+                label2.Text = " ";
+                this.Controls.Add(label2);
+
+                //button3.Text = "test";
+                label2.Text = "Подождите, идёт поиск ...";
+            }                      
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private static bool NegativeNumbers(float lambda)
         {
-            // таблица первичного статистического анализа
-            this.dataGridView2.RowCount = 8;
-            this.dataGridView2.ColumnCount = 3;
-            this.dataGridView2.Rows[0].HeaderCell.Value = string.Format("Среднее");
-            this.dataGridView2.Rows[2].HeaderCell.Value = string.Format("Среднеквадратическое");
-            this.dataGridView2.Rows[4].HeaderCell.Value = string.Format("Асимметрия");
-            this.dataGridView2.Rows[6].HeaderCell.Value = string.Format("Эксцесс");
-            for (int i = 0; i < 7; i = i + 2)
-            {
-                this.dataGridView2.Rows[i].Cells[0].Value = "Оценка";
-                this.dataGridView2.Rows[i + 1].Cells[0].Value = "Дов. интервал";
-            }
-
-            // таблица на вкладке 2 - оценка параметров регрессии
-            this.dataGridView3.RowCount = 2; // пока 2, неизвестен массив A
-            this.dataGridView3.ColumnCount = 8;
-            this.dataGridView3.Columns[0].HeaderCell.Value = string.Format("α");
-            this.dataGridView3.Columns[1].HeaderCell.Value = string.Format("Оценка");
-            this.dataGridView3.Columns[2].HeaderCell.Value = string.Format("Стандартизированная оценка");
-            this.dataGridView3.Columns[3].HeaderCell.Value = string.Format("Среднеквадратическое отклонение");
-            this.dataGridView3.Columns[4].HeaderCell.Value = string.Format("Статистика");
-            this.dataGridView3.Columns[5].HeaderCell.Value = string.Format("Квантиль");
-            this.dataGridView3.Columns[6].HeaderCell.Value = string.Format("Значимость");
-            this.dataGridView3.Columns[7].HeaderCell.Value = string.Format("Доверительный интервал");
-            this.dataGridView3.Columns[0].Width = 25;
-            
+            return lambda <= 0;            
         }
 
-        private void tabPage2_Click(object sender, EventArgs e)
+        private bool isExistNegativeNumbers(double[] x)
+        {
+            bool flag = true;
+            foreach (var n in x)
+            {
+                if (n < 0)
+                {
+                    flag = true;
+                    break;
+                }
+                else flag = false; 
+            }
+            return flag;
+        }               
+
+        private void chart2_Click(object sender, EventArgs e)
         {
 
+        }       
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void пошаговаяРегрессияToolStripMenuItem_Click(object sender, EventArgs e)
+        {            
+            FindingLambda();
+            поПреобразованнымДаннымToolStripMenuItem.Enabled = true;
+            //пошаговымМетодомToolStripMenuItem.Enabled = true;
+            tabControl1.SelectTab(2);
+        }
+
+        double[,] trans_mas;
+
+        private void поИсходнымДаннымToolStripMenuItem_Click(object sender, EventArgs e)
+        {            
+            RecoveryRegres_BoxCox.RecoveryRegres recoveryRegres = new RecoveryRegres_BoxCox.RecoveryRegres();
+            trans_mas = recoveryRegres.RecoveryByLambdaOpt(_listX, resultListPLP);
+
+            Controls.RecoveryRegres recoveryRegres2 = new Controls.RecoveryRegres();
+            recoveryRegres2.RecoveryAndShow(trans_mas, dataGridView6, chart3, label8, label9);
+
+            tabControl1.SelectTab(1);
+            tabControl3.SelectTab(2);
+
+            поПреобразованнымДаннымToolStripMenuItem.Enabled = false;
+            пошаговымМетодомToolStripMenuItem.Enabled = true;
+        }
+
+        private void пошаговымМетодомToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // true так как нужно указаать что пошаговая регрессия над преобразованным массивом и резкльтаты выводим в 4 вкладку
+            if (trans_mas != null)
+            {
+                StepRegresInvoke(trans_mas, true);
+                tabControl1.SelectTab(1);
+                tabControl3.SelectTab(3);
+                пошаговымМетодомToolStripMenuItem.Enabled = false;
+            }
+            else
+                MessageBox.Show("Массив не преобразован", "-");
+        }
+
+        private void анализToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab(2);
         }
     }
 }

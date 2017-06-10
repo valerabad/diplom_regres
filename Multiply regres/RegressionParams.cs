@@ -61,11 +61,6 @@ namespace Multiply_regres
             s = (1.0d / ((X.GetLength(0) - X.GetLength(1)+1)-1)) * tmp; // + 1 столбец
             return s;
         }
-
-        public double StandartA()
-        {
-                      
-            return 1;
-        }
+        
     }
 }
