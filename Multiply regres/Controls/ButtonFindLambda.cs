@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 namespace Multiply_regres
 {
-    
-
     public partial class Form1 : Form
     {
         //class Worker

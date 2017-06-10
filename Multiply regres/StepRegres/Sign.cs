@@ -6,20 +6,22 @@ using System.Threading.Tasks;
 
 namespace Multiply_regres
 {
-    class Sign : IComparable
+    public class Sign : IComparable
     {
+        public string name;
         public double[] x;
         public double x_srednee;
         public double s;
         public double r;
         public double t;
 
-        public Sign(double[] x, double x_srednee, double s, double t)
+        public Sign(string name, double[] x, double x_srednee, double s, double t)
         {
             this.x = x;
             this.x_srednee = x_srednee;
             this.s = s;
             this.t = t;
+            this.name = name;
             //this.r = r;
         }
 

@@ -38,7 +38,7 @@ namespace Multiply_regres
             // Нужно для передачи для вычисления функции нормального распределения           
 
             mas = ReadFileClass.read_and_results(openFileDialog1, dataGridView1);            
-            try
+            //try
               #region Первичный анализ
             {
                 textBox1.Text = openFileDialog1.FileName;
@@ -149,12 +149,12 @@ namespace Multiply_regres
                 diagnosticChart.BuildChart(A, X, Y, chart1.Series[0]);
                 #endregion
 
-              StepRegresInvoke();
+              StepRegresInvoke(mas);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Предупреждение");
-            }
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Предупреждение");
+            //}
         }                    
 
         void WaitMethod()
@@ -217,6 +217,24 @@ namespace Multiply_regres
         private void пошаговаяРегрессияToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FindingLambda();
+        }
+
+        double[,] trans_mas;
+
+        private void поИсходнымДаннымToolStripMenuItem_Click(object sender, EventArgs e)
+        {            
+            RecoveryRegres_BoxCox.RecoveryRegres recoveryRegres = new RecoveryRegres_BoxCox.RecoveryRegres();
+            trans_mas = recoveryRegres.RecoveryByLambdaOpt(_listX, resultListPLP);
+
+            Controls.RecoveryRegres recoveryRegres2 = new Controls.RecoveryRegres();
+            recoveryRegres2.RecoveryAndShow(trans_mas, dataGridView6, chart3, label8, label9);
+
+            
+        }
+
+        private void пошаговымМетодомToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StepRegresInvoke(trans_mas);
         }
     }
 }

@@ -10,6 +10,8 @@ namespace Multiply_regres.StepRegres
     {
         public List<Sign> X_A = new List<Sign>();
         public List<Sign> X_M = new List<Sign>();
+        public Sign Y;
+        int N;
 
         //double[,] x;
         //double[] Y;
@@ -33,6 +35,8 @@ namespace Multiply_regres.StepRegres
 
         public void FindMaxKorelation(List<Sign> list_x, Sign Y)        
         {
+            this.Y = Y;
+            N = Y.x.Length;
             int n = list_x.Count;              
             foreach (Sign x in list_x)
             {
@@ -52,8 +56,56 @@ namespace Multiply_regres.StepRegres
             return X_M;
         }
 
+        public double[,] PrepareArray(List<Sign> newList_X)
+        {                  
+            int countSign = newList_X.Count + 1; // возврашаемся к масиву с Y
+
+            double[,] mas2 = new double[countSign, N];
+
+            int j = 0;
+            foreach (Sign item in newList_X)
+            {
+                for (int i = 0; i < N; i++)
+                {
+                    mas2[j, i] = item.x[i];
+                }
+                j++;
+            }
+
+            for (int i = 0; i < N; i++)
+            {
+                mas2[j, i] = Y.x[i]; // y не изменяется
+            }
+
+            return mas2;
+        }
+
         public bool FindMaxStatistic(double alfa1)
         {
+            //2 вариант
+            foreach (Sign x in X_A)
+            {                 
+                Controls.RecoveryRegres rr = new Controls.RecoveryRegres();
+                List<Sign> x_tmp = new List<Sign>();
+                x_tmp.Add(x);
+                foreach (Sign xm in X_M)
+                {
+                    x_tmp.Add(xm);
+                }               
+                
+                double[,] preArr = PrepareArray(x_tmp);
+                double[] t = rr.Computing_t(preArr);
+                x.t = t[1] * t[1];
+                //int i = 1; // так как первый столбец свободный член
+                //foreach (Sign s in X_A)
+                //{
+                //    s.t = t[i];
+                //    i++;
+                //}
+                
+                
+            }           
+        
             Sign maxStat =  X_A.OrderByDescending(x => x.t).First(); // выбираем признак с максимальой статистикой
             QuantileFisher quantileFisher = new QuantileFisher();
             int N = FirstAnalis.N_;
@@ -74,8 +126,30 @@ namespace Multiply_regres.StepRegres
 
         }
 
+        public void TrueTest(List<Sign> list_)
+        {
+            X_M.Add(list_.ElementAt(2));
+            X_M.Add(list_.ElementAt(0));
+        }
+
         public bool FindMinStatistic(double alfa1)
         {
+            // пересчитываем t            
+                Controls.RecoveryRegres rr = new Controls.RecoveryRegres();
+                //List<Sign> x_tmp = new List<Sign>();
+                //x_tmp.Add(x);
+                //x_tmp.Add(X_M.First());
+
+                double[,] preArr = PrepareArray(X_M);
+                double[] t = rr.Computing_t(preArr);
+            int h = 1;
+            foreach (Sign xm in X_M)
+            {
+                xm.t = t[h] * t[h];
+            }
+            //X_M.ElementAt(0).t = t[1] * t[1];
+            //X_M.ElementAt(1).t = t[2] * t[2];
+
             Sign maxStat = X_M.OrderBy(x => x.t).First(); // выбираем признак с максимальой статистикой
             QuantileFisher quantileFisher = new QuantileFisher();
             int N = FirstAnalis.N_;

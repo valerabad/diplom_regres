@@ -9,7 +9,7 @@ namespace Multiply_regres
     class ResultPLP
     {
         double p;
-        double lambda_opt;
+        public double lambda_opt;
         double p_opt;
 
         public ResultPLP(double p_, double lambda_opt_, double p_opt_)

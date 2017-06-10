@@ -54,6 +54,18 @@ namespace Multiply_regres
             this.dataGridView5.Columns[6].HeaderCell.Value = string.Format("Значимость");
             this.dataGridView5.Columns[7].HeaderCell.Value = string.Format("Доверительный интервал");
             this.dataGridView5.Columns[0].Width = 25;
+
+            this.dataGridView6.RowCount = 2; // пока 2, неизвестен массив A
+            this.dataGridView6.ColumnCount = 8;
+            this.dataGridView6.Columns[0].HeaderCell.Value = string.Format("α");
+            this.dataGridView6.Columns[1].HeaderCell.Value = string.Format("Оценка");
+            this.dataGridView6.Columns[2].HeaderCell.Value = string.Format("Стандартизированная оценка");
+            this.dataGridView6.Columns[3].HeaderCell.Value = string.Format("Среднеквадратическое отклонение");
+            this.dataGridView6.Columns[4].HeaderCell.Value = string.Format("Статистика");
+            this.dataGridView6.Columns[5].HeaderCell.Value = string.Format("Квантиль");
+            this.dataGridView6.Columns[6].HeaderCell.Value = string.Format("Значимость");
+            this.dataGridView6.Columns[7].HeaderCell.Value = string.Format("Доверительный интервал");
+            this.dataGridView6.Columns[0].Width = 25;
         }
     }
 }
