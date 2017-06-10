@@ -32,7 +32,7 @@ namespace Multiply_regres
         // пошаговая регрессия
         //
 
-        public void StepRegresInvoke(double[,] sended_mas)
+        public void StepRegresInvoke(double[,] sended_mas, bool boxCox)
         {
             #region отбираем признаки методом пошаговой регрессии
             StepRegres.SelectingSigns selectSign = new StepRegres.SelectingSigns();
@@ -110,7 +110,13 @@ namespace Multiply_regres
 
             //resultListPLP.Add(new ResultPLP(1,1,1));
 
-            rr.Recovery(mas2, selectSign.X_M, dataGridView5, chart2,label3, label2);
+            if (boxCox)
+            {
+                rr.Recovery(mas2, selectSign.X_M, dataGridView7, chart4, label11, label10);
+            }
+            else
+                rr.Recovery(mas2, selectSign.X_M, dataGridView5, chart2, label3, label2); 
+
 
             #region вычисление параметров
             //double[] A;// = new double[];

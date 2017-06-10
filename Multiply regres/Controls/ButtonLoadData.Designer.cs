@@ -40,6 +40,10 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -73,6 +77,12 @@
             this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dataGridView6 = new System.Windows.Forms.DataGridView();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.dataGridView7 = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -83,7 +93,7 @@
             this.анализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пошаговаяРегрессияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.восстановлениеРегрессииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.поИсходнымДаннымToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.поПреобразованнымДаннымToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пошаговымМетодомToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -100,6 +110,9 @@
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).BeginInit();
+            this.tabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -395,7 +408,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(115, 227);
+            this.label9.Location = new System.Drawing.Point(116, 227);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(35, 13);
             this.label9.TabIndex = 15;
@@ -404,7 +417,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(115, 205);
+            this.label8.Location = new System.Drawing.Point(116, 205);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(35, 13);
             this.label8.TabIndex = 14;
@@ -437,7 +450,7 @@
             legend3.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Tall;
             legend3.TitleAlignment = System.Drawing.StringAlignment.Far;
             this.chart3.Legends.Add(legend3);
-            this.chart3.Location = new System.Drawing.Point(32, 236);
+            this.chart3.Location = new System.Drawing.Point(33, 236);
             this.chart3.Name = "chart3";
             series3.ChartArea = "ChartArea1";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
@@ -455,7 +468,7 @@
             // 
             this.dataGridView6.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView6.Location = new System.Drawing.Point(16, 12);
+            this.dataGridView6.Location = new System.Drawing.Point(17, 12);
             this.dataGridView6.Name = "dataGridView6";
             this.dataGridView6.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridView6.Size = new System.Drawing.Size(788, 178);
@@ -463,12 +476,87 @@
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.label10);
+            this.tabPage7.Controls.Add(this.label11);
+            this.tabPage7.Controls.Add(this.label12);
+            this.tabPage7.Controls.Add(this.label13);
+            this.tabPage7.Controls.Add(this.chart4);
+            this.tabPage7.Controls.Add(this.dataGridView7);
             this.tabPage7.Location = new System.Drawing.Point(4, 4);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Size = new System.Drawing.Size(879, 531);
             this.tabPage7.TabIndex = 3;
             this.tabPage7.Text = "По преобразованным признакам пошаговым методом";
             this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(113, 228);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(41, 13);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "label10";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(113, 206);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(41, 13);
+            this.label11.TabIndex = 20;
+            this.label11.Text = "label11";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(27, 228);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(41, 13);
+            this.label12.TabIndex = 19;
+            this.label12.Text = "F-тест:";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(27, 206);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(68, 13);
+            this.label13.TabIndex = 18;
+            this.label13.Text = "R - квадрат:";
+            // 
+            // chart4
+            // 
+            chartArea4.Name = "ChartArea1";
+            this.chart4.ChartAreas.Add(chartArea4);
+            legend4.MaximumAutoSize = 70F;
+            legend4.Name = "Legend1";
+            legend4.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Tall;
+            legend4.TitleAlignment = System.Drawing.StringAlignment.Far;
+            this.chart4.Legends.Add(legend4);
+            this.chart4.Location = new System.Drawing.Point(30, 237);
+            this.chart4.Name = "chart4";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series4.LabelForeColor = System.Drawing.Color.DarkRed;
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chart4.Series.Add(series4);
+            this.chart4.Size = new System.Drawing.Size(757, 295);
+            this.chart4.TabIndex = 17;
+            this.chart4.Text = "chart4";
+            title4.Name = "Title1";
+            this.chart4.Titles.Add(title4);
+            // 
+            // dataGridView7
+            // 
+            this.dataGridView7.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView7.Location = new System.Drawing.Point(14, 13);
+            this.dataGridView7.Name = "dataGridView7";
+            this.dataGridView7.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dataGridView7.Size = new System.Drawing.Size(788, 178);
+            this.dataGridView7.TabIndex = 16;
             // 
             // tabPage3
             // 
@@ -549,31 +637,32 @@
             this.анализToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.пошаговаяРегрессияToolStripMenuItem});
             this.анализToolStripMenuItem.Name = "анализToolStripMenuItem";
-            this.анализToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.анализToolStripMenuItem.Text = "Анализ";
+            this.анализToolStripMenuItem.Size = new System.Drawing.Size(184, 20);
+            this.анализToolStripMenuItem.Text = "Преобразование Бокса-Кокса";
+            this.анализToolStripMenuItem.Click += new System.EventHandler(this.анализToolStripMenuItem_Click);
             // 
             // пошаговаяРегрессияToolStripMenuItem
             // 
             this.пошаговаяРегрессияToolStripMenuItem.Name = "пошаговаяРегрессияToolStripMenuItem";
-            this.пошаговаяРегрессияToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.пошаговаяРегрессияToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.пошаговаяРегрессияToolStripMenuItem.Text = "Поиск λ";
             this.пошаговаяРегрессияToolStripMenuItem.Click += new System.EventHandler(this.пошаговаяРегрессияToolStripMenuItem_Click);
             // 
             // восстановлениеРегрессииToolStripMenuItem
             // 
             this.восстановлениеРегрессииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.поИсходнымДаннымToolStripMenuItem,
+            this.поПреобразованнымДаннымToolStripMenuItem,
             this.пошаговымМетодомToolStripMenuItem});
             this.восстановлениеРегрессииToolStripMenuItem.Name = "восстановлениеРегрессииToolStripMenuItem";
             this.восстановлениеРегрессииToolStripMenuItem.Size = new System.Drawing.Size(169, 20);
             this.восстановлениеРегрессииToolStripMenuItem.Text = "Восстановление регрессии";
             // 
-            // поИсходнымДаннымToolStripMenuItem
+            // поПреобразованнымДаннымToolStripMenuItem
             // 
-            this.поИсходнымДаннымToolStripMenuItem.Name = "поИсходнымДаннымToolStripMenuItem";
-            this.поИсходнымДаннымToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
-            this.поИсходнымДаннымToolStripMenuItem.Text = "По преобразованным данным";
-            this.поИсходнымДаннымToolStripMenuItem.Click += new System.EventHandler(this.поИсходнымДаннымToolStripMenuItem_Click);
+            this.поПреобразованнымДаннымToolStripMenuItem.Name = "поПреобразованнымДаннымToolStripMenuItem";
+            this.поПреобразованнымДаннымToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.поПреобразованнымДаннымToolStripMenuItem.Text = "По преобразованным данным";
+            this.поПреобразованнымДаннымToolStripMenuItem.Click += new System.EventHandler(this.поИсходнымДаннымToolStripMenuItem_Click);
             // 
             // пошаговымМетодомToolStripMenuItem
             // 
@@ -612,6 +701,10 @@
             this.tabPage6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).EndInit();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).EndInit();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -658,7 +751,7 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.DataGridView dataGridView5;
         private System.Windows.Forms.ToolStripMenuItem восстановлениеРегрессииToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem поИсходнымДаннымToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem поПреобразованнымДаннымToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem пошаговымМетодомToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.Label label9;
@@ -668,6 +761,12 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
         private System.Windows.Forms.DataGridView dataGridView6;
         private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart4;
+        private System.Windows.Forms.DataGridView dataGridView7;
     }
 }
 

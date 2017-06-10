@@ -31,6 +31,28 @@ namespace Multiply_regres
         // первичный статистический анализ + восстановление регрессии
         private void загрузитьДанныеToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // отчистка таблиц от предыдущих вычислений
+            for (int i = 0; i < dataGridView6.RowCount; i++)
+            {
+                for (int j = 0; j < dataGridView6.ColumnCount; j++)
+                {
+                    dataGridView6.Rows[i].Cells[j].Value = "";
+                }
+            }
+
+            for (int i = 0; i < dataGridView7.RowCount; i++)
+            {
+                for (int j = 0; j < dataGridView7.ColumnCount; j++)
+                {
+                    dataGridView7.Rows[i].Cells[j].Value = "";
+                }
+            }
+
+
+            пошаговаяРегрессияToolStripMenuItem.Enabled = false;
+            поПреобразованнымДаннымToolStripMenuItem.Enabled = false;
+            пошаговымМетодомToolStripMenuItem.Enabled = false;
+
             StepRegres.QuantileFisher quantileFisher = new StepRegres.QuantileFisher();
             double z = quantileFisher.z(0.1d, 1.0d, 120.0d);
             
@@ -149,7 +171,8 @@ namespace Multiply_regres
                 diagnosticChart.BuildChart(A, X, Y, chart1.Series[0]);
                 #endregion
 
-              StepRegresInvoke(mas);
+                пошаговаяРегрессияToolStripMenuItem.Enabled = true;
+                StepRegresInvoke(mas, false);
             }
             //catch (Exception ex)
             //{
@@ -215,8 +238,11 @@ namespace Multiply_regres
         }
 
         private void пошаговаяРегрессияToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        {            
             FindingLambda();
+            поПреобразованнымДаннымToolStripMenuItem.Enabled = true;
+            //пошаговымМетодомToolStripMenuItem.Enabled = true;
+            tabControl1.SelectTab(2);
         }
 
         double[,] trans_mas;
@@ -229,12 +255,30 @@ namespace Multiply_regres
             Controls.RecoveryRegres recoveryRegres2 = new Controls.RecoveryRegres();
             recoveryRegres2.RecoveryAndShow(trans_mas, dataGridView6, chart3, label8, label9);
 
-            
+            tabControl1.SelectTab(1);
+            tabControl3.SelectTab(2);
+
+            поПреобразованнымДаннымToolStripMenuItem.Enabled = false;
+            пошаговымМетодомToolStripMenuItem.Enabled = true;
         }
 
         private void пошаговымМетодомToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            StepRegresInvoke(trans_mas);
+            // true так как нужно указаать что пошаговая регрессия над преобразованным массивом и резкльтаты выводим в 4 вкладку
+            if (trans_mas != null)
+            {
+                StepRegresInvoke(trans_mas, true);
+                tabControl1.SelectTab(1);
+                tabControl3.SelectTab(3);
+                пошаговымМетодомToolStripMenuItem.Enabled = false;
+            }
+            else
+                MessageBox.Show("Массив не преобразован", "-");
+        }
+
+        private void анализToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab(2);
         }
     }
 }

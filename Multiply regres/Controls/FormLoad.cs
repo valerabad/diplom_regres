@@ -10,6 +10,9 @@ namespace Multiply_regres
     {
         private void Form1_Load(object sender, EventArgs e)
         {
+            поПреобразованнымДаннымToolStripMenuItem.Enabled = false;
+            пошаговымМетодомToolStripMenuItem.Enabled = false;
+            пошаговаяРегрессияToolStripMenuItem.Enabled = false;
             //double tmp  = Math.Pow(-19.3705d, 2.5d);
             //double tmp2 = Math.Pow(19.3705d, 2.5d);
             //double tmp3 = Math.Pow(19.3705d, -2.5d);
@@ -55,6 +58,7 @@ namespace Multiply_regres
             this.dataGridView5.Columns[7].HeaderCell.Value = string.Format("Доверительный интервал");
             this.dataGridView5.Columns[0].Width = 25;
 
+            // 2.3. таблица на вкладке 2 - оценка параметров регрессии
             this.dataGridView6.RowCount = 2; // пока 2, неизвестен массив A
             this.dataGridView6.ColumnCount = 8;
             this.dataGridView6.Columns[0].HeaderCell.Value = string.Format("α");
@@ -65,7 +69,20 @@ namespace Multiply_regres
             this.dataGridView6.Columns[5].HeaderCell.Value = string.Format("Квантиль");
             this.dataGridView6.Columns[6].HeaderCell.Value = string.Format("Значимость");
             this.dataGridView6.Columns[7].HeaderCell.Value = string.Format("Доверительный интервал");
-            this.dataGridView6.Columns[0].Width = 25;
+            this.dataGridView6.Columns[0].Width = 25;            
+
+            // 2.4. таблица на вкладке 2 - оценка параметров регрессии
+            this.dataGridView7.RowCount = 2; // пока 2, неизвестен массив A
+            this.dataGridView7.ColumnCount = 8;
+            this.dataGridView7.Columns[0].HeaderCell.Value = string.Format("α");
+            this.dataGridView7.Columns[1].HeaderCell.Value = string.Format("Оценка");
+            this.dataGridView7.Columns[2].HeaderCell.Value = string.Format("Стандартизированная оценка");
+            this.dataGridView7.Columns[3].HeaderCell.Value = string.Format("Среднеквадратическое отклонение");
+            this.dataGridView7.Columns[4].HeaderCell.Value = string.Format("Статистика");
+            this.dataGridView7.Columns[5].HeaderCell.Value = string.Format("Квантиль");
+            this.dataGridView7.Columns[6].HeaderCell.Value = string.Format("Значимость");
+            this.dataGridView7.Columns[7].HeaderCell.Value = string.Format("Доверительный интервал");
+            this.dataGridView7.Columns[0].Width = 25;
         }
     }
 }
